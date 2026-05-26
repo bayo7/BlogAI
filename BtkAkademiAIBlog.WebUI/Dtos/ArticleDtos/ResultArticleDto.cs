@@ -1,8 +1,6 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace BtkAkademiAIBlog.WebApi.Entities
+﻿namespace BtkAkademiAIBlog.WebUI.Dtos.ArticleDtos
 {
-    public class Article
+    public class ResultArticleDto
     {
         public int ArticleId { get; set; }
         public string Title { get; set; }
@@ -10,7 +8,7 @@ namespace BtkAkademiAIBlog.WebApi.Entities
         public string MainImageUrl { get; set; }
         public string Content { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int? CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

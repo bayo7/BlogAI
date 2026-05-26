@@ -10,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<BlogAIContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<BlogAIContext>();
+//builder.Services.AddScoped<BlogAIContext>();
 
 
 builder.Services.AddControllers();
