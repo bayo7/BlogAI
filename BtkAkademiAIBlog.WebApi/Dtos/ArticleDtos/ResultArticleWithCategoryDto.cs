@@ -1,6 +1,6 @@
-﻿namespace BtkAkademiAIBlog.WebUI.Dtos.ArticleDtos
+﻿namespace BtkAkademiAIBlog.WebApi.Dtos.ArticleDtos
 {
-    public class ResultArticleDto
+    public class ResultArticleWithCategoryDto
     {
         public int ArticleId { get; set; }
         public string Title { get; set; }
@@ -12,6 +12,5 @@
         public string CategoryName { get; set; }
         public bool IsFeatureSlider { get; set; }
         public string FeatureSliderImageUrl { get; set; }
-        public string FeatureImageUrl { get; set; }
     }
 }

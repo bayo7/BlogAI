@@ -1,4 +1,6 @@
-﻿using BtkAkademiAIBlog.WebApi.Context;
+﻿using AutoMapper;
+using BtkAkademiAIBlog.WebApi.Context;
+using BtkAkademiAIBlog.WebApi.Dtos.ArticleDtos;
 using BtkAkademiAIBlog.WebApi.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,24 +13,28 @@ namespace BtkAkademiAIBlog.WebApi.Controllers
     public class ArticlesController : ControllerBase
     {
         private readonly BlogAIContext _context;
+        private readonly IMapper _mapper;
 
-        public ArticlesController(BlogAIContext context)
+        public ArticlesController(BlogAIContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult ArticleList()
         {
             var values = _context.Articles.Include(x => x.Category).ToList();
-            return Ok(values);
+            var dto = _mapper.Map<List<ResultArticleWithCategoryDto>>(values);
+            return Ok(dto);
         }
 
         [HttpPost]
-        public IActionResult CreateArticle(Article article)
+        public IActionResult CreateArticle(CreateArticleDto createArticleDto)
         {
-            article.CreatedDate = DateTime.Now;
-            _context.Articles.Add(article);
+            createArticleDto.CreatedDate = DateTime.Now;
+            var values = _mapper.Map<Article>(createArticleDto);
+            _context.Articles.Add(values);
             _context.SaveChanges();
             return Ok();
         }
@@ -45,16 +51,48 @@ namespace BtkAkademiAIBlog.WebApi.Controllers
         public IActionResult GetArticle(int id)
         {
             var value = _context.Articles.Find(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetArticleByIdDto>(value));
         }
 
         [HttpPut]
-        public IActionResult UpdateArticle(Article article)
+        public IActionResult UpdateArticle(UpdateArticleDto dto)
         {
-            article.CreatedDate = DateTime.Now;
-            _context.Articles.Update(article);
+            dto.CreatedDate = DateTime.Now;
+            var value = _mapper.Map<Article>(dto);
+            _context.Articles.Update(value);
             _context.SaveChanges();
             return Ok("Güncelleme İşlemi Başarılı");
+        }
+
+        [HttpGet("GetArticlesFeatureSliderByTrue")]
+        public IActionResult GetArticlesFeatureSliderByTrue()
+        {
+            var values = _context.Articles.Where(y => y.IsFeatureSlider == true).Include(x => x.Category).ToList();
+            return Ok(_mapper.Map<List<ResultArticleWithCategoryDto>>(values));
+        }
+
+        [HttpGet("GetLastTechnologyArticle")]
+        public IActionResult GetLastTechnologyArticle()
+        {
+            var categoryId = _context.Categories.Where(x => x.CategoryName == "Teknoloji").Select(y => y.CategoryId).FirstOrDefault();
+            var values = _context.Articles.Where(x => x.CategoryId == categoryId).OrderByDescending(y => y.ArticleId).Take(1).FirstOrDefault();
+            return Ok(values);
+        }
+
+        [HttpGet("GetLastSportsArticle")]
+        public IActionResult GetLastSportsArticle()
+        {
+            var categoryId = _context.Categories.Where(x => x.CategoryName == "Spor").Select(y => y.CategoryId).FirstOrDefault();
+            var values = _context.Articles.Where(x => x.CategoryId == categoryId).OrderByDescending(y => y.ArticleId).Take(1).FirstOrDefault();
+            return Ok(values);
+        }
+
+        [HttpGet("GetLastTravelArticle")]
+        public IActionResult GetLastTravelArticle()
+        {
+            var categoryId = _context.Categories.Where(x => x.CategoryName == "Seyahat").Select(y => y.CategoryId).FirstOrDefault();
+            var values = _context.Articles.Where(x => x.CategoryId == categoryId).OrderByDescending(y => y.ArticleId).Take(1).FirstOrDefault();
+            return Ok(values);
         }
     }
 }

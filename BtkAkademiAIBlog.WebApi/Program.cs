@@ -1,11 +1,18 @@
 using BtkAkademiAIBlog.WebApi.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// builder tanýmlamalarýnýn arasýna eklenecek:
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddMaps(Assembly.GetExecutingAssembly());
+});
 
 builder.Services.AddDbContext<BlogAIContext>(options =>
     options.UseSqlServer(connectionString));
@@ -34,3 +41,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

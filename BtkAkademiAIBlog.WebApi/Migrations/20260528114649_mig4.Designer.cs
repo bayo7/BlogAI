@@ -4,6 +4,7 @@ using BtkAkademiAIBlog.WebApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BtkAkademiAIBlog.WebApi.Migrations
 {
     [DbContext(typeof(BlogAIContext))]
-    partial class BlogAIContextModelSnapshot : ModelSnapshot
+    [Migration("20260528114649_mig4")]
+    partial class mig4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,12 +67,6 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FeatureImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FeatureSliderImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsFeatureSlider")
                         .HasColumnType("bit");

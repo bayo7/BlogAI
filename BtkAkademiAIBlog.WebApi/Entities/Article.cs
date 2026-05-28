@@ -12,5 +12,8 @@ namespace BtkAkademiAIBlog.WebApi.Entities
         public DateTime CreatedDate { get; set; }
         public int? CategoryId { get; set; }
         public Category Category { get; set; }
+        public bool IsFeatureSlider { get; set; }
+        public string? FeatureSliderImageUrl { get; set; }
+        public string? FeatureImageUrl { get; set; }
     }
 }
