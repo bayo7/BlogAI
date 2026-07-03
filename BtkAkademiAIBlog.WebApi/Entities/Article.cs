@@ -15,5 +15,7 @@ namespace BtkAkademiAIBlog.WebApi.Entities
         public bool IsFeatureSlider { get; set; }
         public string? FeatureSliderImageUrl { get; set; }
         public string? FeatureImageUrl { get; set; }
+        public string? AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using BtkAkademiAIBlog.WebApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BtkAkademiAIBlog.WebApi.Migrations
 {
     [DbContext(typeof(BlogAIContext))]
-    partial class BlogAIContextModelSnapshot : ModelSnapshot
+    [Migration("20260703132405_mig7")]
+    partial class mig7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,9 +139,6 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArticleId"));
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
@@ -171,8 +171,6 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ArticleId");
-
-                    b.HasIndex("AppUserId");
 
                     b.HasIndex("CategoryId");
 
@@ -424,15 +422,9 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
             modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.Article", b =>
                 {
-                    b.HasOne("BtkAkademiAIBlog.WebApi.Entities.AppUser", "AppUser")
-                        .WithMany("Articles")
-                        .HasForeignKey("AppUserId");
-
                     b.HasOne("BtkAkademiAIBlog.WebApi.Entities.Category", "Category")
                         .WithMany("Articles")
                         .HasForeignKey("CategoryId");
-
-                    b.Navigation("AppUser");
 
                     b.Navigation("Category");
                 });
@@ -486,11 +478,6 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.AppUser", b =>
-                {
-                    b.Navigation("Articles");
                 });
 
             modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.Category", b =>
