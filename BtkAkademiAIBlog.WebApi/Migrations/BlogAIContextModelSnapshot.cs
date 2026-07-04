@@ -40,7 +40,7 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     b.HasKey("AboutId");
 
-                    b.ToTable("Abouts");
+                    b.ToTable("Abouts", (string)null);
                 });
 
             modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.AppUser", b =>
@@ -176,7 +176,7 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.Category", b =>
@@ -192,7 +192,7 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.Contact", b =>
@@ -229,7 +229,7 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     b.HasKey("ContactId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.Employee", b =>
@@ -258,7 +258,7 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("BtkAkademiAIBlog.WebApi.Entities.TradingVideo", b =>
@@ -286,7 +286,7 @@ namespace BtkAkademiAIBlog.WebApi.Migrations
 
                     b.HasKey("TradingVideoId");
 
-                    b.ToTable("TradingVideos");
+                    b.ToTable("TradingVideos", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

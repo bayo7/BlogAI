@@ -1,4 +1,6 @@
 using BtkAkademiAIBlog.WebApi.Context;
+using BtkAkademiAIBlog.WebApi.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -16,6 +18,9 @@ builder.Services.AddAutoMapper(config =>
 
 builder.Services.AddDbContext<BlogAIContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<BlogAIContext>()
+    .AddDefaultTokenProviders();
 
 //builder.Services.AddScoped<BlogAIContext>();
 
